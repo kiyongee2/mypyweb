@@ -7,8 +7,22 @@
         <div class="card-body">
             <!-- 줄바꿈 : white-space: pre-line -->
             <div class="card-text" style="white-space: pre-line">
-                {{ question.content }}
+                {{ question.content }} <!-- 질문 내용 -->
             </div>
+            <div class="d-flex justify-content-end">
+                <div class="badge bg-info text-start">
+                    <div class="mb-2">{{ question.author }}</div>
+                    <div>{{ question.create_date }}</div>
+                </div>
+            </div>
+            <!-- 글쓴이와 로그인한 사람과 일치하면 -->
+            {% if question.author == request.user %}
+            <div>
+                <a href="#"
+                   data-uri="{% url 'board:question_delete' question.id %}"
+                   class="delete btn btn-sm btn-outline-secondary">삭제</a>
+            </div>
+            {% endif %}
         </div>
     </div>
     <h5 class="border-bottom my-3 py-2">
@@ -18,7 +32,13 @@
       <div class="card my-3">
         <div class="card-body">
             <div class="card-text" style="white-space: pre-line">
-                {{ answer.content }}
+                {{ answer.content }}  <!-- 답변 내용 -->
+            </div>
+            <div class="d-flex justify-content-end">
+                <div class="badge bg-info text-start">
+                    <div class="mb-2">{{ answer.author }}</div>
+                    <div>{{ answer.create_date }}</div>
+                </div>
             </div>
         </div>
     </div>
@@ -28,24 +48,26 @@
     <form action="{% url 'board:answer_create' question.id %}"
                     method="post" >
         {% csrf_token %}  <!-- 필수: 403 권한 에러 발생-->
-        <!-- 유효성 검사 - 오류 처리 시작-->
-            {% if form.errors  %}
-                <div class="alert alert-danger">
-                {% for field in form %}  <!-- 폼을 필드를 순회하면서 -->
-                    {% if field.errors  %} <!-- 필드에 오류가 있으면 -->
-                    <strong>{{ field.label }}</strong>
-                        {{ field.errors }}  <!-- 에러 출력 -->
-                    {% endif %}
-                {% endfor %}
-                </div>
-            {% endif %}
-            <!-- 오류 처리 끝-->
+        {% include 'form_errors.html' %}
         <div class="form-group">
             <textarea name="content" rows="10"
-                      cols="50" class="form-control mb-3"></textarea>
+                      cols="50" class="form-control mb-3"
+              {% if not user.is_authenticated %}disabled{% endif %}></textarea>
         </div>
         <button type="submit" class="btn btn-primary">답변 등록</button>
     </form>
     </section>
 </div>
+{% endblock %}
+
+{% block script %}
+<script>
+    $(document).ready(function(){
+        $('.delete').click(function(){  //삭제 버튼을 클릭하면
+            if(confirm('정말 삭제하시겠습니까?')){
+                location.href=$(this).data('uri'); //현재 대상 객체의 주소를 이동
+            }
+        });
+    });
+</script>
 {% endblock %}
