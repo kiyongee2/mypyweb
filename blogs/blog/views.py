@@ -9,7 +9,7 @@ def index(request):
 
 # 포스트 목록
 def post_list(request):
-    post_list = Post.objects.all()
+    post_list = Post.objects.order_by('-pub_date')
     context = {'post_list': post_list}
     return render(request, 'blog/post_list.html', context)
 
@@ -26,6 +26,7 @@ def post_create(request):
         if form.is_valid(): #유효하다면
             post = form.save(commit=False)
             post.pub_date = timezone.now()  # 현재 시간
+            post.author = request.user  #로그인한 사람이 글쓴이임
             post.save()
             return redirect('blog:post_list')
     else:

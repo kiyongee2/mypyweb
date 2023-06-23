@@ -3,10 +3,11 @@
 {% endblock %}
 {% block content %}
 <div class="container">
-    <h1>Blog 홈</h1>
+    <h2>Blog 홈</h2>
     {% if post_list %}
         <!-- 포스트 가져옴 -->
         {% for post in post_list %}
+            <hr>
             <h3 class="my-3">
                 <a href="{% url 'blog:detail' post.id %}">
                     {{ post.title }}
@@ -15,7 +16,7 @@
             <h5 style="white-space: pre-line; line-height: 1.5">
                 {{ post.content }}
             </h5>
-            <p>(작성일: {{ post.pub_date }})</p>
+            <p>글쓴이: {{ post.author }} (작성일: {{ post.pub_date }})</p>
             {% if post.photo %}
                 <img src="{{ post.photo.url }}">
             {% endif %}

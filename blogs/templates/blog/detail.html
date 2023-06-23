@@ -7,6 +7,9 @@
     <h5 style="white-space: pre-line; line-height: 1.5">
         {{ post.content }}
     </h5>
-    <p>(작성일: {{ post.pub_date }})</p>
+    <p>글쓴이: {{ post.author }} (작성일: {{ post.pub_date }})</p>
+    {% if post.photo %}
+        <img src="{{ post.photo.url }}">
+    {% endif %}
 </div>
 {% endblock %}
