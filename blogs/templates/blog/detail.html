@@ -12,8 +12,13 @@
             {{ post.content }}
         </h5>
         <p>글쓴이: {{ post.author }} (작성일: {{ post.pub_date }})</p>
+        <!-- 이미지 파일이 있으면 보이기 -->
         {% if post.photo %}
             <img src="{{ post.photo.url }}">
+        {% endif %}
+        <!-- 파일이 있으면 보이기 -->
+        {% if post.file %}
+            <a href="{{ post.file.url }}">Download</a>
         {% endif %}
     </section>
     <aside id="category">
