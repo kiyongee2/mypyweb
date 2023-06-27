@@ -18,7 +18,18 @@
         {% endif %}
         <!-- 파일이 있으면 보이기 -->
         {% if post.file %}
-            <a href="{{ post.file.url }}">Download</a>
+        <p>
+            <a href="{{ post.file.url }}" class="btn btn-outline-dark">
+                Download:
+                {% if post.get_file_ext == 'csv' %}
+                    <i class="fa-solid fa-file-csv"></i>
+                {% elif post.get_file_ext == 'xlsx' or post.get_file_ext == 'xls' %}
+                    <i class="fa-solid fa-file-excel"></i>
+                {% else %}
+                    <i class="fa-solid fa-file"></i>
+                {% endif %}
+            {{ post.get_file_name }}</a>
+        </p>
         {% endif %}
     </section>
     <aside id="category">

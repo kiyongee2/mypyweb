@@ -1,3 +1,5 @@
+import os
+
 from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
@@ -43,3 +45,12 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+    # 파일의 이름 출력
+    def get_file_name(self):
+        return os.path.basename(self.file.name)
+
+    # 파일의 확장자 구분
+    def get_file_ext(self):
+        # seoul.csv ->split() -> [seoul, csv]
+        return self.get_file_name().split('.')[-1]
