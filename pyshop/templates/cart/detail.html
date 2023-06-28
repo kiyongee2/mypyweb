@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section id="detail">
+    <h1>장바구니 상세 페이지</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Remove</th>
+                <th>Unit Price</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cart %}
+               <!-- {% with product=item.product %}-->
+            <tr>
+                <td>
+                    <img src="{{ item.product.image.url }}">
+                </td>
+                <td>{{ item.product.name }} </td>
+                <td>{{ item.quantity_form.quantity }}</td>
+                <td>Remove</td>
+                <td>{{ item.price }}</td>
+                <td>{{ item.total_price }}</td>
+            </tr>
+                <!--{% endwith %}-->
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+
+{% endblock %}
