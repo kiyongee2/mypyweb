@@ -50,3 +50,14 @@ class Cart:
     def save(self):
         self.session[settings.CART_ID] = self.cart
         self.session.modified = True
+
+    # 주문 총 금액
+    def get_product_total(self):
+        return sum(item['price']*item['quantity'] for item in self.cart.values())
+
+    # 장바구니안의 제품 삭제
+    def remove(self, product):
+        product_id = str(product.id)
+        if product_id in self.cart:
+            del(self.cart[product_id]) #del()로 삭제
+            self.save()
