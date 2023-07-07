@@ -5,7 +5,10 @@ from blog.forms import PostForm
 from blog.models import Post, Category
 
 def index(request):
-    return render(request, 'blog/index.html')
+    #최신글 3개 보내기
+    new_post = Post.objects.order_by('-pub_date')[0:3]
+    context = {'new_post': new_post}
+    return render(request, 'blog/index.html', context)
 
 # 포스트 목록
 def post_list(request):
