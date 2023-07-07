@@ -14,7 +14,15 @@ def index(request):
 def post_list(request):
     post_list = Post.objects.order_by('-pub_date') # 포스트 전체 검색
     categories = Category.objects.all() #카테고리 전체 검색
-    context = {'post_list': post_list, 'categories': categories}
+
+    #게시글 총 개수
+    total_post = len(post_list)
+
+    context = {
+        'post_list': post_list,
+        'categories': categories,
+        'total_post': total_post
+    }
     return render(request, 'blog/post_list.html', context)
 
 # 상세 페이지
@@ -45,10 +53,15 @@ def category_page(request, slug):
     post_list = Post.objects.filter(category=current_category) # 현 카테고리의 포스트들
     post_list = post_list.order_by('-pub_date')  #날짜순 내림차순
     categories = Category.objects.all() #전체 카테고리
+
+    all_post_list = Post.objects.all()  # 전체 게시글 목록
+    total_post = len(all_post_list)     # 게시글 총 개수
+
     context = {
         'current_category': current_category,
         'post_list': post_list,
-        'categories': categories
+        'categories': categories,
+        'total_post': total_post
     }
     return render(request, 'blog/post_list.html', context)
 

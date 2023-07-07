@@ -9,4 +9,6 @@ urlpatterns = [
     path('post/create/', views.post_create, name='post_create'),
     path('category/<str:slug>/', views.category_page,
          name='category_page'), # 카테고리별 페이지
+    path('post/delete/<int:post_id>/', views.post_delete,
+         name='post_delete'),
 ]

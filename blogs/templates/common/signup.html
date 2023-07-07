@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container">
+<div class="container my-3">
   <section id="signup">
       <div class="row">
           <div class="col-4">
@@ -19,31 +19,31 @@
           <div class="form-group my-2">
               <label for="username" class="mb-1">사용자ID</label>
               <input type="text" id="username" name="username"
-                     class="form-control"
+                     class="form-control my-2"
                      value="{{ form.username.value|default_if_none:'' }}">
           </div>
           <div class="form-group my-2">
               <label for="password1" class="mb-1">비밀번호</label>
               <input type="password" id="password1" name="password1"
-                     class="form-control"
+                     class="form-control my-2"
                      value="{{ form.password1.value|default_if_none:'' }}">
           </div>
           <div class="form-group my-2">
               <label for="password2" class="mb-1">비밀번호 확인</label>
               <input type="password" id="password2" name="password2"
-                     class="form-control"
+                     class="form-control my-2"
                      value="{{ form.password2.value|default_if_none:'' }}">
           </div>
           <div class="form-group my-2">
               <label for="last_name" class="mb-1">이름</label>
               <input type="text" id="last_name" name="last_name"
-                     class="form-control"
+                     class="form-control my-2"
                      value="{{ form.last_name.value|default_if_none:'' }}">
           </div>
           <div class="form-group my-2">
               <label for="email" class="mb-1">이메일</label>
               <input type="text" id="email" name="email"
-                     class="form-control"
+                     class="form-control my-2"
                      value="{{ form.email.value|default_if_none:'' }}">
           </div>
           <button type="submit" class="btn btn-primary mt-2">가입하기</button>

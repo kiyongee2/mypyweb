@@ -2,8 +2,9 @@
 {% block title %}포스트 목록입니다.
 {% endblock %}
 {% block content %}
-<div class="container">
-    <section id="post_list">
+<div class="container my-3">
+    <div class="row">
+        <div class="col-8">
         <h2>Blog 홈</h2>
         {% if post_list %}
             <!-- 포스트 가져옴 -->
@@ -20,7 +21,10 @@
                 <h5 style="white-space: pre-line; line-height: 1.5">
                     {{ post.content }}
                 </h5>
-                <p>글쓴이: {{ post.author }} (작성일: {{ post.pub_date }})</p>
+                <p>글쓴이: {{ post.author }} (작성일: {{ post.pub_date }}) |
+                    <a href="#" class="delete"
+                       data-uri="">삭제</a>
+                </p>
                 {% if post.photo %}
                     <img src="{{ post.photo.url }}">
                 {% endif %}
@@ -28,14 +32,54 @@
         {% else %}
             <p>포스트가 없습니다.</p>
         {% endif %}
-    </section>
-    <aside id="category">
+        </div><!-- col-8 끝 -->
+
+        <!-- 카테고리 위젯 -->
+        <div class="col-4 col-lg-3">
+            <div class="card my-3">
+            <h5 class="card-header">분류(Category)</h5>
+                <div class="card-body">
+                    <ul>
+                        <li>
+                            <a href="{% url 'blog:post_list' %}">
+                                {% if not current_category %}
+                                    <b>전체보기({{ total_post }})</b>
+                                {% else %}
+                                    전체보기({{ total_post }})
+                                {% endif %}
+                            </a>
+                        </li>
+                        {% for category in categories %}
+                            {% if current_category.slug == category.slug %}
+                           <!--category.post_set.count : 해당 포스트의 총 개수-->
+                            <li style="background: #ff0">
+                                <a href="{{ category.get_absolute_url }}">
+                                {{ category.name }}({{ category.post_set.count }})
+                                </a>
+                            </li>
+                            {% else %}
+                            <li>
+                                <a href="{{ category.get_absolute_url }}">
+                                {{ category.name }}({{ category.post_set.count }})
+                                </a>
+                            </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div> <!-- card 끝 -->
+        </div> <!-- 카테고리 끝 -->
+    </div>  <!-- row 끝 -->
+</div>
+{% endblock %}
+
+<!--<aside id="category">
         <h4>분류(Category)</h4>
         <div>
             <ul>
                 {% for category in categories %}
                     {% if current_category.slug == category.slug %}
-                   <!-- category.post_set.count : 포스트의 총 개수-->
+                   &lt;!&ndash; category.post_set.count : 포스트의 총 개수&ndash;&gt;
                     <li style="background: #ff0">
                         <a href="{{ category.get_absolute_url }}">
                         {{ category.name }}({{ category.post_set.count }})
@@ -51,6 +95,4 @@
                 {% endfor %}
             </ul>
         </div>
-    </aside>
-</div>
-{% endblock %}
+    </aside>-->
