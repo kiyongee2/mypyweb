@@ -10,18 +10,7 @@ from blog.models import Post, Category
 def index(request):
     #최신글 3개 보내기
     new_post = Post.objects.order_by('-pub_date')[0:3]
-
-    post_list = Post.objects.all()
-    # 게시글 총 개수
-    total_post = len(post_list)
-
-    categories = Category.objects.all()
-
-    context = {
-        'new_post': new_post,
-        'total_post': total_post,
-        'categories': categories
-    }
+    context = {'new_post': new_post,}
     return render(request, 'blog/index.html', context)
 
 # 포스트 목록

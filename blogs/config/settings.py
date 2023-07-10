@@ -31,7 +31,7 @@ INSTALLED_APPS = [
 
     # 소셜 로그인 앱 설정
     'django.contrib.sites',
-    'allauth',
+    'allauth',          #pip install django-allauth
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
